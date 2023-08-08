@@ -1,0 +1,23 @@
+version: "2"
+
+services:
+  review-filter:
+    build: .
+    image: review-filter:latest
+    container_name: review-filter-tool
+    restart: always
+    environment:
+      - PRETRAIN_MODEL=${PRETRAIN_MODEL}
+      - CHECKPOINT_PATH=${CHECKPOINT_PATH}
+      - THRESHOLD=${THRESHOLD}
+      - API_PORT=${API_PORT}
+      - API_HOST=${API_HOST}
+    ports:
+      - "3030:3030"
+    volumes:
+      - ./checkpoint/:/app/checkpoint
+    networks:
+      - Etsy
+
+networks:
+  Etsy:
